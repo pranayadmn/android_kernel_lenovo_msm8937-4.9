@@ -12,7 +12,12 @@
 #ifndef __MSMB_ISP__
 #define __MSMB_ISP__
 
+#ifdef CONFIG_LENOVO_CAMERA
+#include <media/msmb_isp-lenovo.h>
+#else
+
 #include <uapi/media/msmb_isp.h>
+#endif
 
 #ifdef CONFIG_COMPAT
 struct msm_isp_event_data32 {

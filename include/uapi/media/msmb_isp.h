@@ -1,6 +1,10 @@
 #ifndef __UAPI_MSMB_ISP__
 #define __UAPI_MSMB_ISP__
 
+#ifdef CONFIG_LENOVO_CAMERA
+#include <uapi/media/msmb_isp-lenovo.h>
+#else
+
 #include <linux/videodev2.h>
 #include <media/msmb_camera.h>
 
@@ -1114,5 +1118,7 @@ enum msm_isp_ioctl_cmd_code {
 #define VIDIOC_MSM_ISP_DUAL_HW_LPM_MODE \
 	_IOWR('V', MSM_ISP_DUAL_HW_LPM_MODE, \
 	struct msm_vfe_dual_lpm_mode)
+
+#endif
 
 #endif /* __MSMB_ISP__ */

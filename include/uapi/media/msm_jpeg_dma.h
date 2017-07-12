@@ -13,6 +13,10 @@
 #ifndef __UAPI_MSM_JPEG_DMA__
 #define __UAPI_MSM_JPEG_DMA__
 
+#ifdef CONFIG_LENOVO_CAMERA
+#include <uapi/media/msm_jpeg_dma-lenovo.h>
+#else
+
 #include <linux/videodev2.h>
 
 /* msm jpeg dma control ID's */
@@ -24,5 +28,7 @@ struct msm_jpeg_dma_buff {
 	int32_t fd;
 	uint32_t offset;
 };
+
+#endif
 
 #endif /* __UAPI_MSM_JPEG_DMA__ */

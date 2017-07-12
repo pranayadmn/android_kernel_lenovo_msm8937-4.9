@@ -11,7 +11,11 @@ obj-$(CONFIG_SPECTRA_CAMERA) += camera_v3/
 else
 obj-$(CONFIG_SPECTRA_CAMERA) += camera/
 endif
+ifeq ($(CONFIG_LENOVO_CAMERA),y)
+obj-$(CONFIG_MSMB_CAMERA) += camera_v2-lenovo/
+else
 obj-$(CONFIG_MSMB_CAMERA) += camera_v2/
+endif
 obj-y += broadcast/
 obj-$(CONFIG_DVB_MPQ) += dvb/
 obj-$(CONFIG_QCA402X) += qca402/

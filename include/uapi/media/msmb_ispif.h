@@ -1,6 +1,10 @@
 #ifndef UAPI_MSMB_ISPIF_H
 #define UAPI_MSMB_ISPIF_H
 
+#ifdef CONFIG_LENOVO_CAMERA
+#include <uapi/media/msmb_ispif-lenovo.h>
+#else
+
 #include <linux/types.h>
 #include <linux/ioctl.h>
 #include <linux/videodev2.h>
@@ -177,3 +181,4 @@ struct ispif_cfg_data_ext {
 
 #endif
 
+#endif
