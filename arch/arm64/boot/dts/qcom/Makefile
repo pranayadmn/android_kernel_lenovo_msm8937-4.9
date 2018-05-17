@@ -539,12 +539,20 @@ dtb-$(CONFIG_ARCH_MSM8953) += msm8953-cdp.dtb \
 	msm8953-pmi8937-ext-codec-mtp.dtb \
 	msm8953-pmi632-cdp-s2.dtb
 
+ifeq ($(CONFIG_MACH_LENOVO_KARATE),y)
+dtb-$(CONFIG_ARCH_MSM8937) += msm8937-pmi8950-karate.dtb \
+	msm8937-pmi8950-karate-row.dtb
+else ifeq ($(CONFIG_MACH_LENOVO_KARATEP),y)
+dtb-$(CONFIG_ARCH_MSM8937) += msm8937-pmi8950-karatep.dtb \
+	msm8937-pmi8950-karatep-row.dtb
+else
 dtb-$(CONFIG_ARCH_MSM8937) += msm8937-pmi8950-mtp.dtb \
 	msm8937-interposer-sdm439-cdp.dtb \
 	msm8937-interposer-sdm439-mtp.dtb \
 	msm8937-interposer-sdm439-qrd.dtb \
 	msm8937-interposer-sdm429-cdp.dtb \
 	msm8937-interposer-sdm429-mtp.dtb
+endif
 
 dtb-$(CONFIG_ARCH_MSM8940) += msm8940-pmi8937-mtp.dtb \
 	msm8940-pmi8950-mtp.dtb \
