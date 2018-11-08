@@ -806,7 +806,7 @@ static int ft5x0x_GetInISize(char *config_name)
 		pr_err("error occured while opening file %s.\n", filepath);
 		return -EIO;
 	}
-	inode = pfile->f_dentry->d_inode;
+	inode = pfile->f_path.dentry->d_inode;
 	magic = inode->i_sb->s_magic;
 	fsize = inode->i_size;
 	filp_close(pfile, NULL);
@@ -830,7 +830,7 @@ static int ft5x0x_ReadInIData(char *config_name, char *config_buf)
 		pr_err("error occured while opening file %s.\n", filepath);
 		return -EIO;
 	}
-	inode = pfile->f_dentry->d_inode;
+	inode = pfile->f_path.dentry->d_inode;
 	magic = inode->i_sb->s_magic;
 	fsize = inode->i_size;
 	old_fs = get_fs();
