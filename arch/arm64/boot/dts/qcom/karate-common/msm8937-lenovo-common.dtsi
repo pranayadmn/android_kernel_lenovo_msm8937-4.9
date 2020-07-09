@@ -228,7 +228,7 @@
 			};
 		};
 
-		pmi_haptic: qcom,haptic@c000 {
+		pmi_haptic: qcom,haptics@c000 {
                                 qcom,vmax-mv = <2800>;
                 };
 
@@ -518,4 +518,9 @@
 
 &usb_otg {
                 qcom,usbin-vadc = <&pmi8950_vadc>;
+		extcon = <&qpnp_smbcharger>;
         };
+
+&thermal_zones {
+		/delete-node/ pa-therm1-adc;
+	};
