@@ -44,11 +44,6 @@
 #include <linux/fb.h>
 #endif
 
-#if LENOVO_CHARGER_DETECT
-#include <linux/power_supply.h>
-int power_supply_get_battery_charge_state(struct power_supply *psy);
-#endif
-
 /*******************************************************************************
 * Private constant and macro definitions using #define
 *******************************************************************************/
@@ -142,12 +137,6 @@ static unsigned int buf_count_neg;
 
 #if LENOVO_DOUBLE_CLICK
 extern int enable_double_click;
-#endif
-
-#if LENOVO_CHARGER_DETECT
-static struct power_supply *batt_psy;
-static int is_charger_plug;
-static int last_charger_status;
 #endif
 
 u8 buf_touch_data[30 * POINT_READ_BUF] = {0};
@@ -686,21 +675,6 @@ static void fts_touch_irq_work(struct fts_ts_data *fts_wq_data)
 			fts_report_gesture(fts_wq_data);
 	}
 	else {
-#if LENOVO_CHARGER_DETECT
-		if (NULL == batt_psy) {
-			dev_err(&fts_wq_data->client->dev, "battery supply not found\n");
-			batt_psy = power_supply_get_by_name("usb");
-		}
-		else {
-			is_charger_plug = power_supply_get_battery_charge_state(batt_psy);
-			if (is_charger_plug != last_charger_status) {
-				dev_info(&fts_wq_data->client->dev, "detect chager change, from %d to %d\n",
-					last_charger_status, is_charger_plug);
-				last_charger_status = is_charger_plug;
-				fts_write_reg(fts_i2c_client, FTS_REG_CHARGER_STATUS, is_charger_plug);
-			}
-		}
-#endif
 		ret = fts_read_Touchdata(fts_wq_data);
 		if (ret == 0)
 			fts_report_value(fts_wq_data);
@@ -2115,16 +2089,6 @@ static int fts_ts_probe(struct i2c_client *client, const struct i2c_device_id *i
 		dev_err(&client->dev, "Not enough memory\n");
 		goto free_debug_dir;
 	}
-
-#if LENOVO_CHARGER_DETECT
-	batt_psy = power_supply_get_by_name("usb");
-	if (NULL == batt_psy) {
-		dev_err(&fts_wq_data->client->dev, "battery supply not found\n");
-		goto free_debug_dir;
-	}
-	is_charger_plug = power_supply_get_battery_charge_state(batt_psy);
-	dev_info(&fts_wq_data->client->dev, "detect chager status is %d\n", is_charger_plug);
-#endif
 
 	/*get some register information */
 	reg_addr = FTS_REG_POINT_RATE;

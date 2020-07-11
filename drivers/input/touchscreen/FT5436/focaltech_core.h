@@ -113,7 +113,6 @@
 
 #define LENOVO_TP_HW_INFO
 #define LENOVO_DOUBLE_CLICK 1
-#define LENOVO_CHARGER_DETECT 1
 
 #define FTS_STORE_TS_INFO(buf, id, name, max_tch, group_id, fw_vkey_support, \
 			fw_name, fw_vendor, fw_maj, fw_min, fw_sub_min) \
